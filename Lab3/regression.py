@@ -2,10 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-data = np.loadtxt("noisy_8.txt")
+x = []
+y = []
 
-x = data[:, 0]
-y = data[:, 1]
+with open("noisy_8.txt", "r") as file:
+    for line in file:
+        values = line.split()
+
+        if len(values) >= 2:
+            x.append(float(values[0]))
+            y.append(float(values[1]))
+
+x = np.array(x)
+y = np.array(y)
 
 
 train_x = []
