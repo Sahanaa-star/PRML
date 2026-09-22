@@ -50,8 +50,8 @@ print("\nEigenvectors:")
 print(eigenvectors)
 
 # 1(d) Plot the constant density curves
-x1 = np.linspace(mu1 - 4, mu1 + 4, 100)
-x2 = np.linspace(mu2 - 4, mu2 + 4, 100)
+x1 = np.linspace(-2, 10, 100)
+x2 = np.linspace(-2, 10, 100)
 
 X1_grid, X2_grid = np.meshgrid(x1, x2)
 
@@ -76,6 +76,14 @@ plt.ylabel("X2")
 plt.title("Constant Density Curves")
 
 plt.grid(True)
+
+plt.xlim(-2, 10)
+plt.ylim(-2, 10)
+
+plt.xticks(np.arange(-2, 11, 2))
+plt.yticks(np.arange(-2, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 1(e) Plot eigenvectors and mark major and minor axes
@@ -89,19 +97,29 @@ for i in range(2):
     vector = eigenvectors[:, i]
     length = np.sqrt(eigenvalues[i])
 
-    plt.quiver(mu1, mu2,
-               vector[0] * length,
-               vector[1] * length,
-               angles="xy",
-               scale_units="xy",
-               scale=1)
+    color = "black" if eigenvalues[i] == np.max(eigenvalues) else "deeppink"
+    label = "Major axis" if eigenvalues[i] == np.max(eigenvalues) else "Minor axis"
+
+    plt.plot(
+        [mu1 - vector[0] * length, mu1 + vector[0] * length],
+        [mu2 - vector[1] * length, mu2 + vector[1] * length],
+        color=color,
+        linewidth=3,
+        label=label
+    )
 
 plt.xlabel("X1")
 plt.ylabel("X2")
 plt.title("Eigenvectors and Major-Minor Axes")
-
+plt.legend()
 plt.grid(True)
-plt.axis("equal")
+plt.xlim(-2, 10)
+plt.ylim(-2, 10)
+
+plt.xticks(np.arange(-2, 11, 2))
+plt.yticks(np.arange(-2, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 1(f) Compare the major and minor axes with the eigenvalues
@@ -158,8 +176,8 @@ print(eigenvectors_Y)
 
 # 2(c) Plot the constant density curves
 
-x1 = np.linspace(mu1 - 6, mu1 + 6, 100)
-x2 = np.linspace(mu2 - 2, mu2 + 2, 100)
+x1 = np.linspace(-6, 10, 100)
+x2 = np.linspace(-6, 10, 100)
 
 X1_grid, X2_grid = np.meshgrid(x1, x2)
 
@@ -184,6 +202,13 @@ plt.ylabel("X2")
 plt.title("Constant Density Curves - Diagonal Covariance")
 
 plt.grid(True)
+plt.xlim(-6, 10)
+plt.ylim(-6, 10)
+
+plt.xticks(np.arange(-6, 11, 2))
+plt.yticks(np.arange(-6, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 2(d) Plot eigenvectors and mark major and minor axes
@@ -197,9 +222,15 @@ plt.scatter(mu1, mu2, marker="x", s=100)
 for i in range(2):
     v = eigenvectors_Y[:, i]
 
+    color = "black" if eigenvalues_Y[i] == np.max(eigenvalues_Y) else "deeppink"
+    label = "Major axis" if eigenvalues_Y[i] == np.max(eigenvalues_Y) else "Minor axis"
+
     plt.plot(
         [mu1 - v[0] * 2, mu1 + v[0] * 2],
-        [mu2 - v[1] * 2, mu2 + v[1] * 2]
+        [mu2 - v[1] * 2, mu2 + v[1] * 2],
+        color=color,
+        linewidth=3,
+        label=label
     )
 
 plt.xlabel("X1")
@@ -207,7 +238,13 @@ plt.ylabel("X2")
 plt.title("Eigenvectors and Major-Minor Axes - Diagonal Covariance")
 
 plt.grid(True)
-plt.axis("equal")
+plt.xlim(-6, 10)
+plt.ylim(-6, 10)
+
+plt.xticks(np.arange(-6, 11, 2))
+plt.yticks(np.arange(-6, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 2(e) Compare the major and minor axes with the eigenvalues
@@ -248,8 +285,8 @@ print(Y3[:10])
 
 # 3(b) Plot the constant density curves
 
-x1 = np.linspace(mu1 - 6, mu1 + 6, 100)
-x2 = np.linspace(mu2 - 4, mu2 + 4, 100)
+x1 = np.linspace(-6, 10, 100)
+x2 = np.linspace(-6, 10, 100)
 
 X1_grid, X2_grid = np.meshgrid(x1, x2)
 
@@ -274,6 +311,13 @@ plt.ylabel("X2")
 plt.title("Constant Density Curves - Full Covariance")
 
 plt.grid(True)
+plt.xlim(-6, 10)
+plt.ylim(-6, 10)
+
+plt.xticks(np.arange(-6, 11, 2))
+plt.yticks(np.arange(-6, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 3(c) Estimate eigenvalues and eigenvectors
@@ -318,10 +362,10 @@ for i in range(2):
 
     if i == major_index:
         axis_label = "Major axis"
-        axis_color = "red"
+        axis_color = "black"
     else:
         axis_label = "Minor axis"
-        axis_color = "green"
+        axis_color = "pink"
 
     plt.plot(
         [mu1 - vector[0] * length,
@@ -339,7 +383,13 @@ plt.title("Eigenvectors and Major-Minor Axes - Full Covariance")
 
 plt.legend()
 plt.grid(True)
-plt.axis("equal")
+plt.xlim(-6, 10)
+plt.ylim(-6, 10)
+
+plt.xticks(np.arange(-6, 11, 2))
+plt.yticks(np.arange(-6, 11, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 4(a) Generate two Gaussian classes
@@ -391,12 +441,19 @@ plt.title("Two Gaussian Classes")
 
 plt.legend()
 plt.grid(True)
+plt.xlim(-6, 12)
+plt.ylim(-6, 12)
+
+plt.xticks(np.arange(-6, 13, 2))
+plt.yticks(np.arange(-6, 13, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
 
 # 4(c) Plot the decision boundary
 
-x1 = np.linspace(-5, 12, 200)
-x2 = np.linspace(-2, 13, 200)
+x1 = np.linspace(-6, 12, 200)
+x2 = np.linspace(-6, 12, 200)
 
 X1_grid, X2_grid = np.meshgrid(x1, x2)
 
@@ -423,4 +480,11 @@ plt.title("Decision Boundary")
 
 plt.legend()
 plt.grid(True)
+plt.xlim(-6, 12)
+plt.ylim(-6, 12)
+
+plt.xticks(np.arange(-6, 13, 2))
+plt.yticks(np.arange(-6, 13, 2))
+
+plt.gca().set_aspect("equal", adjustable="box")
 plt.show()
